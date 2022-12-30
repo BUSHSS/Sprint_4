@@ -2,6 +2,7 @@ package ru.yandex.praktikum;
 
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,7 +12,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 @RunWith(Parameterized.class)
 public class CheckOrderHeaderTrueTest {
+    private WebDriver driver;
+@Before
+public void initialize() {
+    System.setProperty("webdriver.gecko.driver", "C:/Program Files/Git/geckodriver/geckodriver.exe");
 
+    // драйвер для браузера Chrome
+    //driver = new ChromeDriver();
+    // драйвер для браузера Firefox
+    driver = new FirefoxDriver();
+    // переход на страницу тестового приложения
+    driver.get("https://qa-scooter.praktikum-services.ru/");
+}
     private final String name;
     private final String surname;
     private final String address;
@@ -32,6 +44,8 @@ public class CheckOrderHeaderTrueTest {
         this.comment=comment;
     }
 
+
+
     @Parameterized.Parameters
     public static Object[][] newOrderData(){
         return new Object[][] {
@@ -40,18 +54,9 @@ public class CheckOrderHeaderTrueTest {
         };
     }
 
-    private WebDriver driver;
+
     @Test
     public void Order(){
-
-        System.setProperty("webdriver.gecko.driver", "C:/Program Files/Git/geckodriver/geckodriver.exe");
-
-        // драйвер для браузера Chrome
-        //driver = new ChromeDriver();
-        // драйвер для браузера Firefox
-        driver = new FirefoxDriver();
-        // переход на страницу тестового приложения
-        driver.get("https://qa-scooter.praktikum-services.ru/");
 
         HomePageMesto objHomePage = new HomePageMesto(driver);
         //ожидание отображения поп-ап окна cookie
